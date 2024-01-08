@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card gradient-1">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Completed Todos</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white" id="completedTodosId">{{completedTodosAmount}}</h2>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-check-circle"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card gradient-2">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Pending Todos</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white" id="pendingTodosId">{{pendingTodosAmount}}</h2>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-list-ol"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card gradient-3">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Total Todos</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white" id="totalTodosId">{{totalTodosAmount}}</h2>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-list-alt"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card gradient-4">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Completion Rate</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white" id="completionRateId">{{completionRate}}%</h2>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-percent"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#todoModal">Create Todo</button><br/>
+                    <span>{{request.session.jeff}}</span>
+                    <div class="active-member">
+                        <div class="table-responsive">
+                            <table class="table table-xs mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Status</th>
+                                        <th>Time Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableId">
+                                    {% include '_tableDetailsListPartial.html' %}
+                               
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>                        
+        </div>
+    </div>
+
+
+
+    
+    <!-- The Modal Contents -->
+    <div id="formListId">
+        {% include '_todoFormPartial.html' %}
+    </div>
+    <!-- End Modal Contents -->
+    
+    <!-- The Edit Modal Contents -->
+    <div id="editTodoFormId">
+        
+    </div>
+    <!-- End Edit Modal Contents -->
+
+    </div>
+
+{% endblock %}

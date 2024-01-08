@@ -1,0 +1,6 @@
+{
+    "liveServer.settings.port": 5501,
+    "editor.fontSize": 16,
+    "editor.fontFamily": "roboto",
+    "files.autoSave": "onFocusChange"
+}

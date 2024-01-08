@@ -1,0 +1,142 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Todo Authentication</title>
+  </head>
+  <body>
+    <style>
+      .nav{
+        --bs-nav-link-padding-x: 3rem !important;
+      }
+      .nav-link, .nav-link.active:hover{
+        color: green !important;
+      }
+      .nav-link:hover{
+        color: white !important;
+      }
+
+        .button__text {
+            transition: all 0.2s;
+          }
+          
+          .button--loading .button__text {
+            visibility: hidden;
+            opacity: 0;
+          }
+          
+          .button--loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 4px solid transparent;
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: button-loading-spinner 1s ease infinite;
+          }
+          
+          @keyframes button-loading-spinner {
+            from {
+              transform: rotate(0turn);
+            }
+          
+            to {
+              transform: rotate(1turn);
+            }
+          }
+    </style>
+
+    <section class="form-01-main">
+      <div class="form-cover">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-sub-main">
+              <div class="_main_head_as">
+                <a href="#">
+                  <img src="{% static 'assets/images/vector.png' %}">
+                </a>
+              </div>
+
+              {% block authContent %}
+              <div id="authContentId">
+                              <!-- Start the Tab Section -->
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-login-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-login-tab" aria-selected="true">Login</button>
+                  <button class="nav-link" id="nav-register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register-tab" aria-selected="false">Register</button>
+                </div>
+              </nav>
+              <!-- End the Tab Section -->
+
+              <div class="tab-content" id="nav-tabContent">
+                <!-- Start Login section  -->
+                <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-home-tab">
+      
+                   {% include '_authenticationLoginPartial.html' %}      
+                    
+
+                   
+                  <a href="javascript:void(0)" class="btn btn-link" onclick="GetForgotPasswordPartial()">Forgot Password?</a>
+                </div>
+                <!-- End Login section  -->
+
+
+                <!-- Start Register section  -->
+                <div class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-profile-tab">
+      
+                   {% include '_authenticationRegisterPartial.html' %}
+      
+                </div>
+                <!-- End Register section  -->
+
+
+              </div>                   
+
+
+              </div>
+
+              
+                <div id="forgotPasswordId" style="display: none;">
+                  <h1>Forgot Password</h1>
+                  {% include '_forgotPasswordPartial.html' %}      
+                </div>
+
+                {% endblock %}
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+    
+    
+    <!-- Javascript Section -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>   '
+    <script src="{% static 'customs/actions.js' %}"></script>
+  </body>
+</html>
