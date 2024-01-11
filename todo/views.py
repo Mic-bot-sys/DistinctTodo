@@ -5,12 +5,16 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
+from django.db.models import Q
 import json
 
 from utilities.EmailNotification import EmailNotify
+from utilities.EncryptData import Encrypt
 from .models import List
 from django.views.decorators.csrf import csrf_exempt
 
+
+base_url = 'http://127.0.0.1:8000/'
 
 
 
@@ -34,18 +38,27 @@ def registration(request):
             
 
 
-def sendEmail(request):
+def sendMail(request):
     if request.method == 'POST':
         try:
             body = json.loads(request.body)
             
-            receiver = ''
-            subject = ''
-            body = ''
+            receiver = body['receiver']
+            checkReceiver = User.objects.filter(email=receiver).first()
+            # checkReceiver.set_password("00000")
+            # checkReceiver.save()
             
-            result = EmailNotify()
+            if not checkReceiver:
+                return JsonResponse({"Message": "Account with this Email does not exist", "Status": "404"})
+            
+            subject = 'Reset Password!!!'            
+            encMessage = Encrypt(receiver)
+            url = base_url+"reset-password/"+str(encMessage)
+            body = 'Reset the Password of your Acount by clicking on this link; \n'+url
+            
+            result = EmailNotify(receiver, subject, body)
             if result:
-                return render()
+                return JsonResponse({"Message": "Email sent Successlly", "Status": "200"})
             
         except Exception as ex:
             print(ex)
@@ -54,7 +67,7 @@ def sendEmail(request):
         
         
         
-def reset(request):
+def reset(request, url):
     if request.method == 'GET':
         return render(request, 'resetPassword.html')
     if request.method == 'POST':
@@ -89,7 +102,9 @@ def authentication(request):
                 isAuthenticated = user.check_password(password)
                 if isAuthenticated: 
                     login(request, user)
-                    return JsonResponse({"message": "Success", "status":"200"})          
+                    return JsonResponse({"message": "Success", "status":"200"})  
+                
+                return JsonResponse({"message": "Invalid Credentials", "status":"404"})             
             else:
                 return JsonResponse({"message": "User not Found", "status":"404"})
         except Exception as ex:
@@ -153,7 +168,8 @@ def getTodoBySearchValue(request, condition, value):
             
                 userId = request.user.id
                 if condition == 'pending':
-                    todoLists = List.objects.filter(content__icontains=value, createdBy_id=userId, isDeleted=False,isCompleted=False)[:5]
+                    todoLists = List.objects.filter(Q(content__icontains=value, createdBy_id=userId, isDeleted=False,isCompleted=False) |
+                                                    Q(title__icontains=value, createdBy_id=userId, isDeleted=False,isCompleted=False))[:5]
                     return render(request, "_tableDetailsListPartial.html", {"todos": todoLists})
                 elif condition == 'completed':
                     todoLists = List.objects.filter(content__icontains=value, createdBy_id=userId, isDeleted=False,isCompleted=True)[:5]

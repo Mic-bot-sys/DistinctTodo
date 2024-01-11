@@ -3,6 +3,11 @@ function showDataLoading(){
     tBody.innerHTML = '<h1>Loading...................</h1>'
 }
 
+function showDataLoading2(){
+    let tBody = document.getElementById("completedTableId");
+    tBody.innerHTML = '<h1>Loading...................</h1>'
+}
+
 function showPreLoader(){
     let preloader = document.getElementById("preloader");
     preloader.style.display = 'block'
@@ -329,15 +334,21 @@ function DeleteTodo(event, id){
 function SearchTodo(event, condition){
     event.preventDefault();
 
+    debugger
     let searchText = $('#searchId').val();
+    let completionSearchId = $('#completionSearchId').val();
+    if (completionSearchId){
+        condition = 'completed'
+    }
 
-    showDataLoading();
+    // condition === 'pending' ? showDataLoading() : showDataLoading2()
        
     $.ajax({
         type: 'GET',
         url: `/get/search/${condition}/${searchText}/`,
         dataType: 'html',
         success: function (result) {
+            debugger
             console.log(result)
             $('#tableId').html(result);
         },
@@ -351,7 +362,6 @@ function SearchTodo(event, condition){
 
 function ResetData(){
     let searchText = $('#searchId').val();
-    console.log(searchText)
     if(searchText.length == 0){
         $.ajax({
             type: 'GET',

@@ -24,7 +24,7 @@ def EmailNotify(receiver:str, subject:str, body:str):
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
             smtp.login(email_sender, email_password)
             smtp.sendmail(email_sender, email_receiver, emailObj.as_string())
-            return "Notification Success"
+            return "Notification Successful"
     except Exception as ex:
         return ex
     

@@ -6,7 +6,8 @@ from . import views
 urlpatterns = [
     path('', views.authentication, name='authentication'),
     path('register', views.registration, name='registration'),
-    path('reset-password/', views.reset, name='reset'),
+    path('send-mail', views.sendMail, name='sendMail'),
+    path('reset-password/<str:url>/', views.reset, name='reset'),
     
     path('home/', views.home, name='home'),
     path('create', views.createTodo, name='create'),    

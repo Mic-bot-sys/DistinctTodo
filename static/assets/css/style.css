@@ -50,7 +50,7 @@ textarea {
 }
 .form-01-main {    
     padding: 40px 0px;
-    background: url(../images/bg-01.jpg);
+    background: url(../images/tbg.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -64,7 +64,7 @@ textarea {
 .form-cover {
     position: absolute;
     content: "";
-    background: rgba(0,0,0,0.8);
+    background: rgb(123 123 123 / 80%);
     bottom: 0;
     top: 0;
     width: 100%;
@@ -83,8 +83,9 @@ textarea {
     width:100%;
     display:block;
     margin:20px auto;
-    background:rgba(0,0,0,0.8);
+    background: rgb(35 35 35 / 80%);
     padding: 45px 60px 46px;
+    border-radius: 1.5rem;
 
 }
  @media screen and (max-width:767px){
@@ -168,12 +169,16 @@ textarea {
   margin:20px 0 25px 0px;
   display:inline-block;
   z-index:2;
-  position:relative; 
+  position:relative;
+  background: #ffff;
+   border-radius: 50%; 
+   max-height: 160px; 
+   max-width: 160px;
 }
 
 ._main_head_as a img{
   height:100px;
   width:100px;
   position:relative;
-  border-radius:50px;
+  /* border-radius:50%; */
 }

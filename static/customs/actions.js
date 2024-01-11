@@ -1,4 +1,27 @@
 
+// A Created Function for the Sweet Alert Functionality
+function popUp(icon, title, text){
+    Swal.fire({
+        position: "center",
+        icon: icon,
+        title: title,
+        text: text,
+        timer: 2500
+      });
+}
+
+function popUpWithoutTimer(icon, title, text){
+    Swal.fire({
+        position: "center",
+        icon: icon,
+        title: title,
+        text: text,
+        // timer: 2500
+      });
+}
+// End the Function definition of the Sweet Alert Functionality
+
+
 
 function authentication(event){
     event.preventDefault();
@@ -41,6 +64,8 @@ function authentication(event){
         },
         error: function(error){
             console.log(error)
+            btn.classList.remove("button--loading");
+            btn.disabled = false
         }
     })
     // window.location.href = 'https://www.facebook.com'
@@ -116,12 +141,57 @@ function registration(event){
 }
 
 
+
 function GetForgotPasswordPartial(){
     $('#authContentId').hide()
     $('#forgotPasswordId').show()
 }
 
+
+
 function GetAuthenticationSectionPartials(){
     $('#forgotPasswordId').hide()
     $('#authContentId').show()
+}
+
+
+
+function RecoverEmail(event){
+    event.preventDefault();
+
+    const btn = document.querySelector("#recoverBtn");
+    btn.disabled = true
+    btn.classList.add("button--loading");
+
+    const token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
+    let forgottenEmail = $('#forgottenEmail').val();
+
+    let obj = {
+        receiver: forgottenEmail
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/send-mail',
+        dataType: 'json',
+        data: JSON.stringify(obj),
+        headers: {
+            'X-CSRFToken': token 
+       },
+        success: function (result) {
+            let icon = "success"
+            let title = "Email sent Successfully"
+            let text = `A mail has been sent to ${forgottenEmail}. Click on the link to recover your account!!!`
+
+            $('#forgottenEmail').val('');
+            result && popUpWithoutTimer(icon, title, text)
+            btn.classList.remove("button--loading");
+            btn.disabled = false
+        },
+        error: function(error){
+            console.log(error)
+        }
+    })
+
+    
 }
