@@ -2,6 +2,7 @@ asgiref==3.7.2
 cffi==1.16.0
 cryptography==41.0.7
 Django==4.2.9
+django-reset-migrations==0.4.0
 psycopg2==2.9.9
 pycparser==2.21
 sqlparse==0.4.4
