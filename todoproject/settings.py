@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-70uequ7-#c3q#$cd_!$f*a@t&z0eo%7-f_9t04gamakp)9!^qm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -80,11 +80,11 @@ WSGI_APPLICATION = 'todoproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "TodoList",
+        'NAME': "railway",
         'USER': "postgres",
-        'PASSWORD': "MichAels786",
-        'HOST': 'localhost',
-        'PORT': os.getenv('DB_PORT'),
+        'PASSWORD': "e-BbgD6DAEf1A-3-DCEa5cd*AF5b2bb6",
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '54560'
     }
 }
 
@@ -133,6 +133,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 # End StaticFiles Configuration
 
 
